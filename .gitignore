@@ -1,0 +1,30 @@
+# Secrets and credentials
+.env
+.env.*
+*.pem
+*.key
+credentials
+credentials.*
+secrets
+secrets.*
+
+# Virtual machines
+*.vdi
+*.vmdk
+*.vbox-prev
+*.ova
+*.ovf
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
