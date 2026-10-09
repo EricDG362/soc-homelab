@@ -127,3 +127,54 @@ La correlación de estos hallazgos permite establecer la hipótesis de que el di
 * Captura 2: anuncio ARP de la MAC sospechosa relacionado con la IP de la víctima.
 * Captura 3: paquetes HTTP con destino Ethernet a la MAC sospechosa.
 * Captura 4: tráfico dirigido a la víctima con diferentes MAC de origen para una misma IP de origen.
+
+
+## 5. Ejercicios
+
+**Pregunta 1:** ¿Cuál es el número de solicitudes ARP elaboradas por el atacante?
+
+En primer lugar, podemos desglosar la pregunta en dos partes. La primera hace referencia a las **solicitudes ARP**, por lo que necesitamos identificar los paquetes cuyo código de operación sea `1`, correspondiente a las solicitudes ARP. Para ello, utilizamos el filtro `arp.opcode == 1`.
+
+La segunda parte indica que las solicitudes deben haber sido elaboradas por el atacante. Como ya conocemos su dirección MAC (`00:0c:29:e2:18:b4`), podemos filtrar los paquetes cuya MAC de origen coincida con esa dirección mediante `eth.src == 00:0c:29:e2:18:b4`.
+
+Al combinar ambas condiciones con el operador lógico `&&` (AND), obtenemos el siguiente filtro:
+
+```wireshark
+arp.opcode == 1 && eth.src == 00:0c:29:e2:18:b4
+```
+
+El resultado permite identificar las solicitudes ARP cuya MAC de origen coincide con la dirección MAC investigada. El contador de paquetes mostrados en Wireshark permite obtener la cantidad de coincidencias.
+![captura de imagen](Respuesta-1.png)
+
+**Pregunta 2:** ¿Cuál es el número de paquetes HTTP que recibe el atacante?
+
+Esta pregunta sigue una lógica similar a la anterior. Primero, identificamos los paquetes correspondientes al protocolo HTTP mediante el filtro `http`. Luego, debemos determinar cuáles tienen como destino la dirección MAC del atacante.
+
+Para ello, utilizamos `eth.dst == 00:0c:29:e2:18:b4`, que permite identificar los paquetes cuya dirección MAC de destino coincide con la del atacante.
+
+Al combinar ambas condiciones, obtenemos el siguiente filtro:
+
+```wireshark
+http && eth.dst == 00:0c:29:e2:18:b4
+```
+
+El resultado muestra los paquetes HTTP capturados cuya dirección MAC de destino coincide con la dirección investigada. El contador de paquetes mostrados permite conocer cuántos cumplen estas condiciones.
+![captura de imagen](Respuesta-2.png)
+
+**Pregunta 3:** ¿Cuál es el número de entradas de nombres de usuario y contraseñas detectadas?
+
+En primer lugar, buscamos las solicitudes HTTP que utilizan el método `POST`, ya que este método suele emplearse para enviar datos de formularios al servidor. Para identificarlas, utilizamos el siguiente filtro:
+
+```wireshark
+http.request.method == "POST"
+```
+
+Este filtro reduce la cantidad de paquetes mostrados y permite localizar solicitudes que, en el campo de información (`Info`), hacen referencia a `userinfo.php`.
+
+Al inspeccionar los detalles de estas solicitudes, encontramos campos denominados `uname` y `pass`, que corresponden a posibles campos de nombre de usuario y contraseña. A partir de esta observación, podemos buscar paquetes que contengan esos términos mediante el siguiente filtro:
+
+```wireshark
+http && (frame contains "uname=" || frame contains "pass=")
+```
+![captura de imagen](Respuesta-3-1.png)
+![captura de imagen](Respuesta-3-2.png)
