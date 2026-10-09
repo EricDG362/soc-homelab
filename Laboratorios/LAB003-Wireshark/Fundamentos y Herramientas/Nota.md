@@ -65,3 +65,5 @@ Funciones utilizadas para agregar información durante el análisis:
 Cada funcionalidad documentada incluye capturas de pantalla que muestran su utilización directamente en Wireshark.
 
 Esta sección representa los conocimientos fundamentales de Wireshark que posteriormente son aplicados en los ejercicios prácticos de la sección **Ejercicios de Análisis**.
+
+Dicho repertorio se va **Actualizando** dia a dia con mas herramientas aprendidas y puestas en practica.
