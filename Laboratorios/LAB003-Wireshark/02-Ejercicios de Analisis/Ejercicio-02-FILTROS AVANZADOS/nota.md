@@ -1,4 +1,4 @@
-# Análisis de tráfico mediante filtros de Wireshark
+# Análisis de tráfico mediante filtros avanzados de Wireshark
 
 ## Objetivo
 
@@ -33,17 +33,28 @@ Los filtros permiten realizar esta primera etapa de clasificación y reducir el 
 
 Las capturas incluidas en esta sección muestran los diferentes filtros utilizados durante los ejercicios prácticos.
 
+## Filtrar DNS-consultas-tipo-A
+![captura de imagen](Filtrar-DNS-consultas-tipo-A.png) 
 
-- Filtros simples.
-- Filtros combinados.
-- Operadores `AND`, `OR` y `NOT`.
-- Comparaciones de valores.
-- Búsquedas mediante `contains`.
-- Búsquedas mediante `matches`.
-- Uso del operador `in`.
-- Uso de `upper` y `lower`.
-- Conversión mediante `string`.
-- Exclusión de tráfico no relevante.
-- Refinamiento progresivo de consultas.
+## Filtrar-paquetes con TTL-10
+![captura de imagen](Filtrar-paquetes-con-TTL-10.png)
+
+## Filtrar-paquetes-que-utilizan-Puerto-TCP-4444
+![captura de imagen](Filtrar-paquetes-que-utilizan-Puerto-TCP-4444.png)
+
+## Filtrar-Solicitudes-GET-al puerto-80
+![captura de imagen](Filtrar-Solicitudes-GET-al-puerto-80.png)
+
+## Filtro-CONTAINS-paquetes-HTTP-con-servidor-Apache
+![captura de imagen](Filtro-CONTAINS-paquetes-HTTP-con-servidor-Apache.png)
+
+## Filtro-IN-paquetes-con-puerto-80,443,8080
+![captura de imagen](Filtro-IN-paquetes-con-puerto-80,443,8080.png)
+
+## Filtro-MATCHES-paquetes-donde-el-Host-coincida-con-htm-l-php
+![captura de imagen](Filtro-MATCHES-paquetes-donde-el-Host-coincida-con-htm-l-php.png)
+
+## Filtro-STRING-muestra-solo-Frames-impares
+![captura de imagen](Filtro-STRING-muestra-solo-Frames-impares.png)
 
 Estas capturas documentan no solamente el resultado final, sino también las herramientas utilizadas para llegar a él.

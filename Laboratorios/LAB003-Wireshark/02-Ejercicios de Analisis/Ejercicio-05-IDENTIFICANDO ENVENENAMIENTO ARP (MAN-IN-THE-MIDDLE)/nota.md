@@ -40,7 +40,7 @@ En los resultados se observaron 2 direcciones MAC anunciando esa misma IP, entre
 
 Esta situación constituye un indicador de posible ARP Spoofing, ya que un dispositivo podría estar intentando asociar la IP del router con su propia dirección MAC.
 
-**Captura 1:** 
+![captura de imagen](Captura1.png)
 
 ## 2. Identificación de anuncios ARP relacionados con la víctima
 
@@ -58,7 +58,7 @@ Este hallazgo es compatible con un intento de influir en la asociación ARP util
 
 El campo `Target IP address` identifica el destinatario declarado en el mensaje ARP, pero no demuestra por sí solo que la víctima haya aceptado la asociación anunciada.
 
-**Captura 2:** 
+![captura de imagen](Captura2.png)
 
 ## 3. Identificación de tráfico HTTP dirigido a la MAC sospechosa
 
@@ -76,7 +76,7 @@ Este comportamiento, analizado junto con los anuncios ARP anteriores, refuerza l
 
 Sin embargo, este filtro no demuestra por sí solo que todo el tráfico HTTP de la víctima pase por dicho dispositivo ni que exista interceptación efectiva. Para confirmar esa hipótesis es necesario correlacionar las comunicaciones y verificar el punto en el que se capturaron los paquetes.
 
-**Captura 3:** 
+![captura de imagen](Captura3.png)
 
 ## 4. Análisis del tráfico dirigido a la máquina víctima
 
@@ -99,7 +99,7 @@ La presencia de una misma IP de origen con diferentes MAC constituye un indicado
 
 Al correlacionar estos paquetes con las evidencias anteriores, se obtiene un patrón compatible con un posible ARP Spoofing orientado a la máquina víctima.
 
-**Captura 4:** se observan paquetes dirigidos a la víctima con una misma IP de origen y diferentes direcciones MAC de origen.
+![captura de imagen](Captura4.png) se observan paquetes dirigidos a la víctima con una misma IP de origen y diferentes direcciones MAC de origen.
 
 # Conclusión
 
@@ -131,6 +131,7 @@ La correlación de estos hallazgos permite establecer la hipótesis de que el di
 
 ## 5. Ejercicios
 
+
 **Pregunta 1:** ¿Cuál es el número de solicitudes ARP elaboradas por el atacante?
 
 En primer lugar, podemos desglosar la pregunta en dos partes. La primera hace referencia a las **solicitudes ARP**, por lo que necesitamos identificar los paquetes cuyo código de operación sea `1`, correspondiente a las solicitudes ARP. Para ello, utilizamos el filtro `arp.opcode == 1`.
@@ -144,6 +145,7 @@ arp.opcode == 1 && eth.src == 00:0c:29:e2:18:b4
 ```
 
 El resultado permite identificar las solicitudes ARP cuya MAC de origen coincide con la dirección MAC investigada. El contador de paquetes mostrados en Wireshark permite obtener la cantidad de coincidencias.
+
 ![captura de imagen](Respuesta-1.png)
 
 **Pregunta 2:** ¿Cuál es el número de paquetes HTTP que recibe el atacante?
@@ -159,6 +161,7 @@ http && eth.dst == 00:0c:29:e2:18:b4
 ```
 
 El resultado muestra los paquetes HTTP capturados cuya dirección MAC de destino coincide con la dirección investigada. El contador de paquetes mostrados permite conocer cuántos cumplen estas condiciones.
+
 ![captura de imagen](Respuesta-2.png)
 
 **Pregunta 3:** ¿Cuál es el número de entradas de nombres de usuario y contraseñas detectadas?
@@ -177,4 +180,5 @@ Al inspeccionar los detalles de estas solicitudes, encontramos campos denominado
 http && (frame contains "uname=" || frame contains "pass=")
 ```
 ![captura de imagen](Respuesta-3-1.png)
+
 ![captura de imagen](Respuesta-3-2.png)

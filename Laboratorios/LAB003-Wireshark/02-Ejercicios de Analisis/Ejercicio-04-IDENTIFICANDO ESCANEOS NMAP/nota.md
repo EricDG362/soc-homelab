@@ -45,7 +45,7 @@ El filtro utilizado identifica los paquetes SYN iniciales, pero no demuestra por
 tcp.flags.reset == 1 and tcp.flags.ack == 1
 ```
 
-**Captura 1:**
+![captura de imagen](Captura1.png)
 
 ## 2. Identificación de escaneo de puertos UDP
 
@@ -65,7 +65,7 @@ Este comportamiento es compatible con una actividad de reconocimiento de puertos
 
 El filtro `udp` muestra los paquetes UDP, pero no confirma por sí solo que se esté realizando un escaneo. La conclusión se obtiene al correlacionar las solicitudes a diferentes puertos con las respuestas recibidas.
 
-**Captura 2:**
+![captura de imagen](Captura2.png)
 
 ## 3. Identificación de puertos UDP cerrados mediante ICMP
 
@@ -86,7 +86,7 @@ En la captura se observan mensajes `Port Unreachable` que permiten identificar s
 
 La correlación entre los mensajes ICMP, las direcciones IP y los puertos investigados permite reconstruir parte de la actividad de reconocimiento.
 
-**Captura 3:** 
+![captura de imagen](Captura3.png)
 
 
 # Aprendizajes
